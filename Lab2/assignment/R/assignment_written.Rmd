@@ -1,0 +1,56 @@
+---
+title: "Assignment Lab2 (Written)"
+author: "Tae Sung Oh"
+date: "2026-09-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Required written responses
+
+1. If `m = length(x)` and `n = length(y)`, how many pairwise distances must be calculated?
+
+```{r}
+length(lab2_vectors$x) * length(lab2_vectors$y)
+```
+
+A total of 15000000 pairwise distances must be calculated.
+
+2. What is the time complexity of Tasks 3 and 4? State the result using Big-O or Big-Theta notation.
+
+If the lengths of $x$ and $y$ are $m$ and $n$ respectively, then the time complexity for both Task 3 and Task 4 is the same. 
+$$\textbf{O}(m \times n), \Theta(m \times n)$$
+
+3. Does vectorization change the asymptotic complexity, or does it reduce implementation costs and constant factors?
+
+Vectorization does not change the asymptotic complexity in this case, as the polynomial degree for each notation is not changed. However, the implementation costs and constant factors decrease due to more efficient coding, and thus reduces the execution time.
+
+4. What speedup and percentage time reduction did you observe from Task 3 to Task 4? Was the refactoring useful?
+```{r}
+time_gain <- time_loop / time_vectorized
+time_gain
+
+time_reduction_percent <-
+  100 * (1 - time_vectorized / time_loop)
+time_reduction_percent
+```
+
+The loop execution time is 9.52 times longer than the vectorized time, and the time reduction percentage is 89.49%. Thus, we can conclude that the refactoring was useful.
+
+5. Let k be the number of nonzero entries after thresholding. Compare the storage complexity of the dense and sparse results.
+Dense and sparse results have the same number of non-zero entries. While the sparse representation handles zeros efficiently, the number of non-zero entries does not change. Thus, storage complexity does not change.
+
+6. What percentage of final-object memory did Task 5 save relative to Task 4?
+```{r}
+memory_reduction_percent <-
+  100 * (1 - as.numeric(store_sparce)/as.numeric(store_vectorized))
+memory_reduction_percent
+```
+Compared to Task 4, Task 5 saved 62.94% of memory.
+
+7. Why can Task 5 produce a smaller final object while still using substantial peak memory during conversion from dense to sparse form?
+
+The theoretical storage complexity remains unchanged and is identical in the worst case. The reason the final object size becomes smaller is that the transformation occurs after the peak memory usage has already taken place.
